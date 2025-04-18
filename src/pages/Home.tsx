@@ -4,11 +4,11 @@ import { RootState, AppDispatch } from '../store/store';
 import { getCountries } from '../action/action';
 import SearchForm from '../components/Form/form'
 import ListCountries from './ListCountries/listCountries';
+import ResultsSearch from './Results_search/results_search';
 
 const Home: React.FC = () => {
 
-  const paises = useSelector((state: RootState) => state.countries);
-  console.log('countriesList', paises);
+  const state = useSelector((state: RootState) => state.searchActive);
 
   const dispatch = useDispatch<AppDispatch>();
 
@@ -19,7 +19,7 @@ const Home: React.FC = () => {
   return (
     <div style={{ padding: '20px' }}>
       <SearchForm />
-      <ListCountries /> 
+      {state ? <ResultsSearch /> : <ListCountries />}
     </div>
   );
 };

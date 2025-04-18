@@ -4,7 +4,8 @@ import {
     SEARCH_COUNTRIES,
     SORT_ALPHABETICALLY , 
     ADD_TO_FAVORITES, 
-    REMOVE_FROM_FAVORITES
+    REMOVE_FROM_FAVORITES,
+    CLEAR_RESULTS
 } from "../action/action"; 
 
 import { 
@@ -22,6 +23,7 @@ interface State {
     favorites: Country[];
     country: Country | null;
     resultSearch: Country[];
+    searchActive: boolean;
 }
 
 const initialState: State = {
@@ -29,6 +31,7 @@ const initialState: State = {
     favorites: [],
     country: null,
     resultSearch: [],
+    searchActive: false,
 };
 
 type Action = 
@@ -37,7 +40,8 @@ type Action =
     | SearchCountriesAction
     | SortAlphabetically 
     | AddToFavoritesAction 
-    | RemoveFromFavoritesAction;
+    | RemoveFromFavoritesAction
+    | { type: typeof CLEAR_RESULTS };
 
 const reducer = (state = initialState, action: Action): State => {
     switch (action.type) {
@@ -55,6 +59,7 @@ const reducer = (state = initialState, action: Action): State => {
             return {
                 ...state,
                 resultSearch: action.payload as Country[], 
+                searchActive: true,
             };
         case SORT_ALPHABETICALLY:
             return {
@@ -80,6 +85,12 @@ const reducer = (state = initialState, action: Action): State => {
             return {
                 ...state,
                 favorites: state.favorites.filter((country) => country.id !== action.payload), 
+            };
+        case CLEAR_RESULTS:
+            return {
+                ...state,
+                resultSearch: [], 
+                searchActive: false, 
             };
         default:
             return state;

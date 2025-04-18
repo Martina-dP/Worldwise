@@ -11,10 +11,10 @@ const Favorites: React.FC = () => {
 
     return (
         <div style={{ padding: '20px' }}>
-            <h2>Países Favoritos</h2>
+            <h2>Favorites</h2>
             <ul>
                 {favorites.length === 0 ? (
-                    <p>No tenés favoritos todavía.</p>
+                    <p>You don't have any favorites yet</p>
                 ) : (
                     <div style={{ display: 'flex', flexWrap: 'wrap', gap: '1rem' }}>
                         {favorites.map((country) => (

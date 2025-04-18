@@ -9,6 +9,8 @@ const SearchForm:  React.FC = () => {
     const [name, setName] = useState('');
     const [languages, setLanguages] = useState('');
     const [timezones, setTimezones] = useState('');
+    const [error, setError] = useState('');
+    const [loading , setLoading] = useState(false);
 
     const data = useSelector((state: RootState) => state.countries);
 
@@ -32,11 +34,21 @@ const SearchForm:  React.FC = () => {
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
+
+        if (!name && !languages && !timezones) {
+            setError('Please fill at least one field');
+            return;
+        } 
+        
+        setError('');
+        setLoading(true);
+
         const filters: { name?: string; languages?: string; timezones?: string } = {};
         if (name) filters.name = name;
         if (languages) filters.languages = languages;
         if (timezones) filters.timezones = timezones;
         dispatch(searchCountries(filters));
+        setLoading(false);
     };
 
     return (
@@ -80,6 +92,8 @@ const SearchForm:  React.FC = () => {
                     ))}
                 </select>
             </div>
+            {error && <p className={style.error_message}>{error}</p>}
+            {loading && <p>Loading...</p>}
             <button type="submit">Search</button>
         </form>
     );

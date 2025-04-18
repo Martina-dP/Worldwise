@@ -1,21 +1,33 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
-import { RootState } from '../../store/store';
+import { useDispatch, useSelector } from 'react-redux';
+import { RootState, AppDispatch } from '../../store/store';
+import { Link } from 'react-router-dom';
 import Card from '../../components/Card/card';
+import { clearSearchResults } from '../../action/action';
 
 const ResultsSearch: React.FC = () => {
 
-    const favorites = useSelector((state: RootState) => state.favorites);
+    const searchResults = useSelector((state: RootState) => state.resultSearch);
+
+    const dispatch = useDispatch<AppDispatch>();
+
+    const handleBackToHome = () => {
+        dispatch(clearSearchResults())
+    }
 
     return (
         <div style={{ padding: '20px' }}>
-            <h2>Países Favoritos</h2>
+            <div>
+                <h2>Results</h2>
+                <Link to="/" onClick={handleBackToHome}>Back to Home</Link>
+            </div>
+            <div>
             <ul>
-                {favorites.length === 0 ? (
-                    <p>No tenés favoritos todavía.</p>
+                {searchResults.length === 0 ? (
+                    <p>No searches performed</p>
                 ) : (
                     <div style={{ display: 'flex', flexWrap: 'wrap', gap: '1rem' }}>
-                        {favorites.map((country) => (
+                        {searchResults.map((country) => (
                             <Card
                                 key={country.id}
                                 id={country.id}
@@ -27,6 +39,7 @@ const ResultsSearch: React.FC = () => {
                     </div>
                 )}
             </ul>
+            </div>
         </div>
     );
 };

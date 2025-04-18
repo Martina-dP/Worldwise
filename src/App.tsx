@@ -5,7 +5,7 @@ import store from './store/store';
 import Navbar from './components/Navbar';
 import Home from './pages/Home';
 import Details from './pages/Details/details';
-import ResultsSearch from './pages/Results_search/results_search';
+import Favorites from './pages/Favorites/favorites';
 
 
 const App: React.FC = () => {
@@ -16,7 +16,7 @@ const App: React.FC = () => {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/country/:id" element={<Details />} />
-          <Route path="/countries/favorites" element={<ResultsSearch />} />
+          <Route path="/countries/favorites" element={<Favorites />} />
         </Routes>
       </Router>
     </Provider>

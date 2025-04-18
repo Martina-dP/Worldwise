@@ -55,3 +55,12 @@ export interface RemoveFromFavoritesAction {
     type: typeof REMOVE_FROM_FAVORITES;
     payload: string | number;
 }
+
+export interface CardProps {
+    id: string;
+    name: { official: string }; 
+    flags: { 
+        svg: string;
+    };
+    isFavorite?: boolean;
+}

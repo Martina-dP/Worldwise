@@ -4,6 +4,7 @@ import {
     Country, 
     GetCountriesAction, 
     GetCountryByIdAction, 
+    SearchCountriesAction,
     RemoveFromFavoritesAction, 
     SortAlphabetically 
 } from "../interfaces/interfaces";
@@ -18,6 +19,7 @@ export const REMOVE_FROM_FAVORITES = "REMOVE_FROM_FAVORITES";
 export type AppDispatch = (action: 
                                 GetCountriesAction | 
                                 GetCountryByIdAction | 
+                                SearchCountriesAction |
                                 SortAlphabetically |
                                 AddToFavoritesAction |
                                 RemoveFromFavoritesAction
@@ -38,7 +40,6 @@ export function getCountries() {
             timezones: country.timezones ,
             maps: { googleMaps: country.maps?.googleMaps},
         }));
-    
         dispatch({
             type: GET_COUNTRIES,
             payload: filteredData,
@@ -63,23 +64,24 @@ export function getDetail(id: string | number) : (dispatch: AppDispatch) => void
     };
 }
 
-export function searchCountries(searchTerm: string, filterBy: 'name' | 'languages' | 'timezones') {
-    return async (dispatch: any) => {
+export function searchCountries(
+    filters: {
+    name?: string;
+    languages?: string;
+    timezones?: string;
+    }) {
+    return async (dispatch: AppDispatch) => {
         try {
             const response = await axios.get<Country[]>(`https://restcountries.com/v3.1/all`);
             const filteredCountries = response.data.filter((country) => {
-                if (filterBy === "name") {
-                    return country.name.official.toLowerCase().includes(searchTerm.toLowerCase());
-                } else if (filterBy === "languages") {
-                    return Object.values(country.languages).some((language) =>
-                        language.toLowerCase().includes(searchTerm.toLowerCase())
-                    );
-                } else if (filterBy === "timezones") {
-                    return country.timezones.some((timezone) =>
-                        timezone.toLowerCase().includes(searchTerm.toLowerCase())
-                    );
-                }
-                return false;
+                const matchesName = filters.name
+                ? country.name?.official?.toLowerCase().includes(filters.name.toLowerCase())
+                : true;
+                const matchesLanguage = filters.languages
+                ? Object.values(country.languages || {}) : true;
+                const matchesTimezone = filters.timezones
+                ? (country.timezones || []) : true;
+                return matchesName && matchesLanguage && matchesTimezone;
             });
             dispatch({
                 type: SEARCH_COUNTRIES,

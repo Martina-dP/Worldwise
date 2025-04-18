@@ -1,0 +1,40 @@
+.card_container {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    width: 90%;
+    padding: 1rem;
+    background-color: var(--color-light);
+    border: 1px solid var(--color-primary-dark);
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    border-radius: 6px;
+}
+
+.card_favorite {
+    display: flex;
+    justify-content: end;
+}
+
+.favorite_button {
+    width: 20%;
+    font-size: .6rem;
+    border: none;
+}
+
+.card_img {
+    display: flex;
+    margin: auto;
+    width: 12em;
+    height: 10em;
+}
+
+.card_title {
+    color: var(--color-primary-dark);
+    font-weight: bold;
+    font-size: 1rem;
+    margin-top: 0.5rem;
+}
+
+.card_title:hover {
+    color: var(--color-primary); 
+}

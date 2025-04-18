@@ -1,0 +1,20 @@
+.form_container {
+    background-color: var(--color-accent);
+    padding: 1em;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    gap: 1em;
+    font-family: 'Inter', sans-serif;
+    width: 80%;
+    max-width: 900px;
+    margin: 0 auto;
+    border-radius: 6px;
+}
+
+.form_container label {
+    color: var(--color-primary-dark);
+    font-weight: 500;
+}

@@ -4,9 +4,10 @@ import { Link } from 'react-router-dom';
 const Navbar: React.FC = () => {
   return (
     <nav style={styles.nav}>
-      <h2 style={styles.logo}>MyApp</h2>
+      <h2 style={styles.logo}>Worldwise</h2>
       <div>
         <Link to="/" style={styles.link}>Home</Link>
+        <Link to="/countries/favorites" style={styles.link}>Favorites</Link>
       </div>
     </nav>
   );
@@ -18,9 +19,10 @@ const styles = {
     top: 0,
     left: 0,
     width: '100%',
+    height: '60px',
     padding: '0 20px',
-    backgroundColor: '#333',
-    color: 'white',
+    backgroundColor: 'var(--color-primary-dark)',
+    color: 'var(--color-light)',
     display: 'flex',
     justifyContent: 'space-between',
     alignItems: 'center',

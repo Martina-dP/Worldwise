@@ -9,6 +9,7 @@ import ResultsSearch from './Results_search/results_search';
 const Home: React.FC = () => {
 
   const [loadingData, setLoadingData] = React.useState(true);
+  const [resetKey, setResetKey] = React.useState(0);
 
   const state = useSelector((state: RootState) => state.searchActive);
 
@@ -22,11 +23,15 @@ const Home: React.FC = () => {
     fetchData();
 }, [dispatch]);
 
+const resetSearch = () => {
+  setResetKey(prevKey => prevKey + 1); 
+}
+
   return (
     <div style={{ padding: '20px' }}>
-      <SearchForm />
+      <SearchForm key={resetKey} />
       {loadingData ? (<p>Loading countries...</p> ) : (
-        state ? <ResultsSearch /> : <ListCountries />
+        state ? <ResultsSearch resetSearch={resetSearch} /> : <ListCountries />
       )}
     </div>
   );

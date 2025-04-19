@@ -26,10 +26,14 @@ const Card: React.FC<CardProps> = ({ id, name, flags, isFavorite}) => {
                     {isFavorite ? '❤️' : '🤍'}
                 </button>
             </div>
-            {flags.svg && <img src={flags.svg} alt={name.official} className={style.card_img} />}
+            <img
+                src={flags?.svg || flags?.png}
+                alt={name.common}
+                className={style.card_img}
+            />
             <div className={style.card_info}>
                 <Link to={`/country/${id}`} >
-                    <span className={style.card_title} >{name.official}</span>
+                    <span className={style.card_title} >{name.common}</span>
                 </Link>
             </div>
         </div>

@@ -66,8 +66,8 @@ const reducer = (state = initialState, action: Action): State => {
                 ...state,
                 countries: [...state.countries].sort((a, b) => {
                     return action.payload === "asc"
-                        ? a.name.official.localeCompare(b.name.official, undefined, { sensitivity: 'base' })
-                        : b.name.official.localeCompare(a.name.official, undefined, { sensitivity: 'base' });
+                        ? a.name.common.localeCompare(b.name.common, undefined, { sensitivity: 'base' })
+                        : b.name.common.localeCompare(a.name.common, undefined, { sensitivity: 'base' });
                 }),
             };
         case ADD_TO_FAVORITES:

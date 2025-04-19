@@ -32,11 +32,16 @@ export function getCountries() {
         const response = await axios.get<Country[]>("https://restcountries.com/v3.1/all");
         const filteredData: Country[] = response.data.map((country: any) => ({
             id: country.cca3,
-            name: { official: country.name?.official || country.name?.common },
+            name: { 
+                common: country.name?.common || country.name?.official || '',
+            },
             capital: country.capital,
             region: country.region,
             population: country.population || 0,
-            flags: { svg: country.flags?.svg },
+            flags: { 
+                svg: country.flags?.svg || country.flags?.png || '',
+                png: country.flags?.png || country.flags?.svg || ''
+            },
             languages: country.languages ,
             timezones: country.timezones ,
             maps: { googleMaps: country.maps?.googleMaps},
@@ -67,29 +72,69 @@ export function getDetail(id: string | number) : (dispatch: AppDispatch) => void
 
 export function searchCountries(
     filters: {
-    name?: string;
-    languages?: string;
-    timezones?: string;
-    }) {
+        name?: string;
+        languages?: string;
+        timezones?: string;
+    }
+) {
     return async (dispatch: AppDispatch) => {
         try {
-            const response = await axios.get<Country[]>(`https://restcountries.com/v3.1/all`);
-            const filteredCountries = response.data.filter((country) => {
-                const matchesName = filters.name
-                ? country.name?.official?.toLowerCase().includes(filters.name.toLowerCase())
-                : true;
-                const matchesLanguage = filters.languages
-                ? Object.values(country.languages || {}) : true;
-                const matchesTimezone = filters.timezones
-                ? (country.timezones || []) : true;
-                return matchesName && matchesLanguage && matchesTimezone;
-            });
+            const response = await axios.get<any[]>(
+                'https://restcountries.com/v3.1/all'
+            );
+
+            const filteredCountries = response.data
+                .filter((country) => {
+                    const matchesName = filters.name
+                        ? (
+                            country.name?.common?.toLowerCase().includes(filters.name.toLowerCase()) ||
+                            Object.values(country.name?.nativeName || {}).some((n: any) =>
+                                n.common.toLowerCase().includes(filters.name!.toLowerCase())
+                            )
+                        )
+                        : true;
+
+                    const matchesLanguage = filters.languages
+                        ? Object.values(country.languages || {}).some((lang: any) =>
+                            lang.toLowerCase().includes(filters.languages!.toLowerCase())
+                        )
+                        : true;
+
+                    const matchesTimezone = filters.timezones
+                        ? (country.timezones || []).some((tz: string) =>
+                            tz.toLowerCase().includes(filters.timezones!.toLowerCase())
+                        )
+                        : true;
+
+                    return matchesName && matchesLanguage && matchesTimezone;
+                })
+                .map((country): Country => ({
+                    id: country.cca3,
+                    name: {
+                        common: country.name?.common || '',
+                    },
+                    capital: country.capital || [],
+                    region: country.region || '',
+                    population: country.population || 0,
+                    flags: {
+                        svg: country.flags?.svg || '',
+                        png: country.flags?.png || '',
+                    },
+                    languages: country.languages || {},
+                    timezones: country.timezones || [],
+                    maps: {
+                        googleMaps: country.maps?.googleMaps || '',
+                    },
+                    isFavorite: false,
+                }));
+
             dispatch({
                 type: SEARCH_COUNTRIES,
-                payload: filteredCountries
+                payload: filteredCountries,
             });
+
         } catch (error) {
-        console.error("Error fetching countries:", error);
+            console.error("Error fetching countries:", error);
         }
     };
 }

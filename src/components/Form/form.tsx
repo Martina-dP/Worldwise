@@ -32,7 +32,7 @@ const SearchForm:  React.FC = () => {
         dispatch(getCountries());
     }, [dispatch]);
 
-    const handleSubmit = (e: React.FormEvent) => {
+    const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
 
         if (!name && !languages && !timezones) {
@@ -47,7 +47,7 @@ const SearchForm:  React.FC = () => {
         if (name) filters.name = name;
         if (languages) filters.languages = languages;
         if (timezones) filters.timezones = timezones;
-        dispatch(searchCountries(filters));
+        await dispatch(searchCountries(filters));
         setLoading(false);
     };
 
@@ -93,8 +93,9 @@ const SearchForm:  React.FC = () => {
                 </select>
             </div>
             {error && <p className={style.error_message}>{error}</p>}
-            {loading && <p>Loading...</p>}
-            <button type="submit">Search</button>
+            <button type="submit" disabled={loading}>
+                {loading ? 'Searching...' : 'Search'}
+            </button>
         </form>
     );
 };

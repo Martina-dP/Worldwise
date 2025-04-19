@@ -14,12 +14,13 @@ export interface GetCountriesAction {
 
 export interface Country {
     id: string;
-    name: { official: string }; 
+    name: { common: string }; 
     capital: string[]; 
     region: string;
     population: number;
     flags: { 
         svg: string;
+        png: string;
     };
     languages: { 
         [key: string]: string;
@@ -58,9 +59,10 @@ export interface RemoveFromFavoritesAction {
 
 export interface CardProps {
     id: string;
-    name: { official: string }; 
+    name: { common: string }; 
     flags: { 
-        svg: string;
+        svg?: string;
+        png?: string;
     };
     isFavorite?: boolean;
 }

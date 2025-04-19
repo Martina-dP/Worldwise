@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import store from './store/store';
 import Navbar from './components/Navbar';
@@ -11,14 +11,12 @@ import Favorites from './pages/Favorites/favorites';
 const App: React.FC = () => {
   return (
     <Provider store={store}> 
-      <Router>
-        <Navbar />
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/country/:id" element={<Details />} />
-          <Route path="/countries/favorites" element={<Favorites />} />
-        </Routes>
-      </Router>
+      <Navbar />
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/country/:id" element={<Details />} />
+        <Route path="/countries/favorites" element={<Favorites />} />
+      </Routes>
     </Provider>
   );
 };

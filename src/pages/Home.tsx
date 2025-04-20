@@ -13,6 +13,7 @@ const Home: React.FC = () => {
   const [resetKey, setResetKey] = React.useState(0);
 
   const state = useSelector((state: RootState) => state.searchActive);
+  
 
   const dispatch = useDispatch<AppDispatch>();
 

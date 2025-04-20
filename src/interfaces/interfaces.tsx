@@ -66,3 +66,10 @@ export interface CardProps {
     };
     isFavorite?: boolean;
 }
+
+export interface PaginationProps {
+    currentPage: number;
+    totalPages: number;
+    handleNextPage: (page: number) => void;
+    handlePrevPage: (page: number) => void;
+}

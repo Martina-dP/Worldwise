@@ -4,6 +4,8 @@ import { RootState, AppDispatch } from '../../store/store';
 import { Link } from 'react-router-dom';
 import Card from '../../components/Card/card';
 import { clearSearchResults } from '../../action/action';
+import Pagination from '../../components/Pagination/pagination';
+
 import style from '../ListCountries/listCountries.module.css';
 import searchStyle from './resultsSearch.module.css';
 
@@ -18,10 +20,25 @@ const ResultsSearch: React.FC<Props> = ({resetSearch}) => {
 
     const dispatch = useDispatch<AppDispatch>();
 
+    const [currentPage, setCurrentPage] = React.useState(1);
+    const [countriesPerPage] = React.useState(20); 
+    const indexOfLastCountry = currentPage * countriesPerPage;
+    const indexOfFirstCountry = indexOfLastCountry - countriesPerPage;
+    const resultsCountries = searchResults.slice(indexOfFirstCountry, indexOfLastCountry);
+    const totalPages = Math.ceil(searchResults.length / countriesPerPage);
+
     const handleBackToHome = () => {
         dispatch(clearSearchResults())
         resetSearch();
     }
+    
+        const handlePrevPage = (page: number) => {
+            setCurrentPage(page);
+        };
+    
+        const handleNextPage = (page: number) => {
+            setCurrentPage(page);
+        };
 
     return (
         <div style={{ padding: '20px' }}>
@@ -30,11 +47,11 @@ const ResultsSearch: React.FC<Props> = ({resetSearch}) => {
                 <Link to="/" onClick={handleBackToHome}>Back to Home</Link>
             </div>
             <div className={style.list_list}>
-                {searchResults.length === 0 ? (
+                {resultsCountries.length === 0 ? (
                     <p>No searches performed</p>
                 ) : (
                     <>
-                        {searchResults.map((country, index ) => (
+                        {resultsCountries.map((country, index ) => (
                             <Card
                                 key={index}
                                 id={country.id}
@@ -46,6 +63,12 @@ const ResultsSearch: React.FC<Props> = ({resetSearch}) => {
                     </>
                 )}
             </div>
+            <Pagination 
+                currentPage={currentPage} 
+                totalPages={totalPages} 
+                handlePrevPage={handlePrevPage}
+                handleNextPage={handleNextPage}
+            />
         </div>
     );
 };

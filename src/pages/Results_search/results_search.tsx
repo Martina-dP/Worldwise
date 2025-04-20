@@ -4,6 +4,8 @@ import { RootState, AppDispatch } from '../../store/store';
 import { Link } from 'react-router-dom';
 import Card from '../../components/Card/card';
 import { clearSearchResults } from '../../action/action';
+import style from '../ListCountries/listCountries.module.css';
+import searchStyle from './resultsSearch.module.css';
 
 interface Props {
     resetSearch: () => void;
@@ -23,16 +25,15 @@ const ResultsSearch: React.FC<Props> = ({resetSearch}) => {
 
     return (
         <div style={{ padding: '20px' }}>
-            <div>
+            <div className={searchStyle.list_header}>
                 <h2>Results</h2>
                 <Link to="/" onClick={handleBackToHome}>Back to Home</Link>
             </div>
-            <div>
-            <ul>
+            <div className={style.list_list}>
                 {searchResults.length === 0 ? (
                     <p>No searches performed</p>
                 ) : (
-                    <div style={{ display: 'flex', flexWrap: 'wrap', gap: '1rem' }}>
+                    <>
                         {searchResults.map((country, index ) => (
                             <Card
                                 key={index}
@@ -42,9 +43,8 @@ const ResultsSearch: React.FC<Props> = ({resetSearch}) => {
                                 isFavorite={isFavorite.some(fav => fav.id === country.id)}
                             />
                         ))}
-                    </div>
+                    </>
                 )}
-            </ul>
             </div>
         </div>
     );

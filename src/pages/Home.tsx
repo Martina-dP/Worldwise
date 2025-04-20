@@ -30,9 +30,9 @@ const resetSearch = () => {
   return (
     <div style={{ padding: '20px' }}>
       <SearchForm key={resetKey} />
-      {loadingData ? (<p>Loading countries...</p> ) : (
-        state ? <ResultsSearch resetSearch={resetSearch} /> : <ListCountries />
-      )}
+        {loadingData ? (<p>Loading countries...</p> ) : (
+          state ? <ResultsSearch resetSearch={resetSearch} /> : <ListCountries />
+        )}
     </div>
   );
 };

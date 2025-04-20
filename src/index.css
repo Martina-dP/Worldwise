@@ -72,3 +72,18 @@ button:focus-visible {
   border: none;
 }
 
+
+@media (max-width: 768px) {
+  button {
+    font-size: 0.85em;
+    padding: 0.45em 0.8em;
+  }
+}
+
+@media (max-width: 480px) {
+  button {
+    font-size: 0.8em;
+    padding: 0.4em 0.7em;
+  }
+}
+

@@ -5,3 +5,17 @@
     padding: 0.5rem 1rem;
     background-color: var(--color-background);
 }
+
+@media (max-width: 768px) {
+    .list_header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.5rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .list_header {
+        padding: 0.5rem 0.5rem;
+    }
+}

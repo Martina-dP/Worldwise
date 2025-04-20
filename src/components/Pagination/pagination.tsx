@@ -1,6 +1,8 @@
 import React from 'react';
 import { PaginationProps } from '../../interfaces/interfaces';
 
+import style from './pagination.module.css';
+
 const Pagination: React.FC<PaginationProps> = ({ 
     currentPage,
     totalPages,
@@ -21,11 +23,11 @@ const Pagination: React.FC<PaginationProps> = ({
     };
 
     return (
-        <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginTop: '20px' }}>
+        <div className={style.pagination_container}>
             <button onClick={handlePrevious} disabled={currentPage === 1}>
                 Previous
             </button>
-            <span style={{ color: 'var(--color-primary-dark)' , fontWeight: 'bold', padding: '0 10px'}}>
+            <span className={style.pagination_text}>
                 Page {currentPage} of {totalPages}
             </span>
             <button onClick={handleNext} disabled={currentPage === totalPages}>

@@ -1,0 +1,34 @@
+.pagination_container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.pagination_text {
+    color: var(--color-primary-dark);
+    font-weight: bold;
+    padding: 0 10px;
+}
+
+@media (max-width: 768px) {
+    .pagination_container {
+        margin-top: 10px;
+    }
+
+    .pagination_text {
+        font-size: .8rem;
+        padding: 0 6px;
+    }
+}
+
+@media (max-width: 480px) {
+    .pagination_container {
+        margin-top: 5px;
+    }
+
+    .pagination_text {
+        font-size: .6rem;
+        padding: 0 4px;
+    }
+}

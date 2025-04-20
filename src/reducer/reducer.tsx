@@ -109,11 +109,22 @@ const reducer = (state = initialState, action: Action): State => {
                 resultSearch: [], 
                 searchActive: false, 
             }
-        case REMOVE_ITEM: 
+        case REMOVE_ITEM: {
+            const updateCountries = state.countries.filter((ct) => ct.id !== action.payload);
+            const updateResultSearch =state.resultSearch.filter((ct) => ct.id !== action.payload);
+            const updateFavorites = state.favorites.filter((ct) => ct.id !== action.payload);
+
+            localStorage.setItem("favorites", JSON.stringify(updateFavorites));
+
             return {
                 ...state,
-                countries: state.countries.filter((country) => country.id !== action.payload),
+                countries: updateCountries,
+                resultSearch: updateResultSearch,
+                favorites: updateFavorites,
+                
             };
+        }
+            
         default:
             return state;
     }

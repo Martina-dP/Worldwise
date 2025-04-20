@@ -54,7 +54,7 @@ const SearchForm:  React.FC = () => {
     return (
         <form onSubmit={handleSubmit} className = {style.form_container}>
             <div>
-                <label htmlFor="name">Name:</label>
+                <label htmlFor="name">Country name:</label>
                 <input
                     type="text"
                     id="name"
@@ -63,13 +63,13 @@ const SearchForm:  React.FC = () => {
                 />
             </div>
             <div>
-                <label htmlFor="languages">Languages:</label>
+                <label htmlFor="languages">Select a language:</label>
                 <select
                     id="languages"
                     value={languages}
                     onChange={(e) => setLanguages(e.target.value)}
                     >
-                    <option value="">Select a language</option>
+                    <option value="">-</option>
                     {listLanguages.map((lg: any, index: number) => (
                         <option key={index} value={lg}>
                             {lg}
@@ -78,13 +78,13 @@ const SearchForm:  React.FC = () => {
                 </select>
             </div>
             <div>
-                <label htmlFor="timezones">Timezones:</label>
+                <label htmlFor="timezones">Select time zone:</label>
                 <select
                     id="timezones"
                     value={timezones}
                     onChange={(e) => setTimezones(e.target.value)}
                     >
-                    <option value="">Select a timezone</option>
+                    <option value="">-</option>
                     {listZoneTime.map((tz: any) => (
                         <option key={tz} value={tz}>
                             {tz}

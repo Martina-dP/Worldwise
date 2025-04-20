@@ -51,9 +51,9 @@ const ResultsSearch: React.FC<Props> = ({resetSearch}) => {
                     <p>No searches performed</p>
                 ) : (
                     <>
-                        {resultsCountries.map((country, index ) => (
+                        {resultsCountries.map((country) => (
                             <Card
-                                key={index}
+                                key={country.id}
                                 id={country.id}
                                 name={country.name}
                                 flags={country.flags}

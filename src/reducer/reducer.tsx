@@ -5,7 +5,8 @@ import {
     SORT_ALPHABETICALLY , 
     ADD_TO_FAVORITES, 
     REMOVE_FROM_FAVORITES,
-    CLEAR_RESULTS
+    CLEAR_RESULTS,
+    SAVE_LOCAL
 } from "../action/action"; 
 
 import { 
@@ -41,7 +42,8 @@ type Action =
     | SortAlphabetically 
     | AddToFavoritesAction 
     | RemoveFromFavoritesAction
-    | { type: typeof CLEAR_RESULTS };
+    | { type: typeof CLEAR_RESULTS }
+    | { type: typeof SAVE_LOCAL, payload: Country[] };
 
 const reducer = (state = initialState, action: Action): State => {
     switch (action.type) {
@@ -74,18 +76,28 @@ const reducer = (state = initialState, action: Action): State => {
             {
                 const countryToAdd = state.countries.find((country) => country.id === action.payload);
                 if (countryToAdd && !state.favorites.some((favorite) => favorite.id === action.payload)) {
+                    const addedFavorite = [...state.favorites, countryToAdd]
+                    localStorage.setItem("favorites", JSON.stringify(addedFavorite));
                     return {
                         ...state,
-                        favorites: [...state.favorites, countryToAdd], 
+                        favorites: addedFavorite,
                     };
                 }
                 return state;
             }
-        case REMOVE_FROM_FAVORITES:
+        case REMOVE_FROM_FAVORITES:{
+            const removedFavorite = state.favorites.filter((country) => country.id !== action.payload);
+            localStorage.setItem("favorites", JSON.stringify(removedFavorite));
             return {
                 ...state,
-                favorites: state.favorites.filter((country) => country.id !== action.payload), 
+                favorites: removedFavorite
             };
+        }
+        case SAVE_LOCAL: 
+            return {
+                ...state,
+                favorites: action.payload as Country[]
+            }
         case CLEAR_RESULTS:
             return {
                 ...state,

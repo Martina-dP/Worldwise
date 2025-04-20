@@ -1,10 +1,11 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState, AppDispatch } from '../store/store';
-import { getCountries } from '../action/action';
+import { getCountries, SAVE_LOCAL } from '../action/action';
 import SearchForm from '../components/Form/form'
 import ListCountries from './ListCountries/listCountries';
 import ResultsSearch from './Results_search/results_search';
+import { Country } from '../interfaces/interfaces';
 
 const Home: React.FC = () => {
 
@@ -21,6 +22,14 @@ const Home: React.FC = () => {
       setLoadingData(false);
     };
     fetchData();
+    const getStorageData = localStorage.getItem("favorites");
+    if (getStorageData) {
+      const parsedFavorites: Country[] = JSON.parse(getStorageData);
+            dispatch({
+                type: SAVE_LOCAL,
+                payload: parsedFavorites,
+            });
+    }
 }, [dispatch]);
 
 const resetSearch = () => {

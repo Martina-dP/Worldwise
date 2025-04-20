@@ -16,6 +16,7 @@ const Card: React.FC<CardProps> = ({ id, name, flags, isFavorite}) => {
             dispatch(removeFromFavorites(id));
         } else {
             dispatch(addToFavorites(id));
+
         }
     };
 

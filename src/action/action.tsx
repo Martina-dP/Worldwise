@@ -16,6 +16,7 @@ export const SORT_ALPHABETICALLY = "SORT_ALPHABETICALLY";
 export const ADD_TO_FAVORITES = "ADD_TO_FAVORITES";
 export const REMOVE_FROM_FAVORITES = "REMOVE_FROM_FAVORITES";
 export const CLEAR_RESULTS = "CLEAR_RESULTS";
+export const SAVE_LOCAL = "SAVE_LOCAL";
 
 export type AppDispatch = (action: 
                                 GetCountriesAction | 
@@ -163,5 +164,12 @@ export function removeFromFavorites(countryId: string | number) : RemoveFromFavo
 export function clearSearchResults() {
     return {
         type: CLEAR_RESULTS,
+    };
+}
+
+export function SaveLocal(favorites: Country) {
+    return {
+        type: SAVE_LOCAL,
+        payload: favorites,
     };
 }

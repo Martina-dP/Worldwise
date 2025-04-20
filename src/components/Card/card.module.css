@@ -33,6 +33,7 @@
     font-weight: bold;
     font-size: 1rem;
     margin-top: 0.5rem;
+    cursor: pointer;
 }
 
 .card_title:hover {

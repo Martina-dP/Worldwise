@@ -36,6 +36,16 @@
     object-fit: cover;
 }
 
+.card_info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    text-align: center;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+    padding: 0.5rem 0;
+}
+
 .card_title {
     color: var(--color-primary-dark);
     font-weight: bold;
@@ -43,6 +53,10 @@
     margin-top: 0.5rem;
     cursor: pointer;
     text-align: center;
+}
+
+.card_btn_delete {
+    padding: 0.25rem 0.5rem;
 }
 
 .card_title:hover {

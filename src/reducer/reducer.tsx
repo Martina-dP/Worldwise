@@ -6,7 +6,8 @@ import {
     ADD_TO_FAVORITES, 
     REMOVE_FROM_FAVORITES,
     CLEAR_RESULTS,
-    SAVE_LOCAL
+    SAVE_LOCAL,
+    REMOVE_ITEM
 } from "../action/action"; 
 
 import { 
@@ -16,7 +17,10 @@ import {
     GetCountryByIdAction, 
     SearchCountriesAction,
     RemoveFromFavoritesAction, 
-    SortAlphabetically 
+    SortAlphabetically, 
+    RemoveItemAction,
+    SaveLocalAction,
+    ClearResultsAction
 } from "../interfaces/interfaces";
 
 interface State {
@@ -42,8 +46,9 @@ type Action =
     | SortAlphabetically 
     | AddToFavoritesAction 
     | RemoveFromFavoritesAction
-    | { type: typeof CLEAR_RESULTS }
-    | { type: typeof SAVE_LOCAL, payload: Country[] };
+    | ClearResultsAction
+    | SaveLocalAction 
+    | RemoveItemAction;
 
 const reducer = (state = initialState, action: Action): State => {
     switch (action.type) {
@@ -103,6 +108,11 @@ const reducer = (state = initialState, action: Action): State => {
                 ...state,
                 resultSearch: [], 
                 searchActive: false, 
+            }
+        case REMOVE_ITEM: 
+            return {
+                ...state,
+                countries: state.countries.filter((country) => country.id !== action.payload),
             };
         default:
             return state;

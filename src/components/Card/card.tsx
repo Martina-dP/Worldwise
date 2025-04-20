@@ -3,7 +3,7 @@ import React from 'react';
 import { useDispatch } from 'react-redux';
 import { AppDispatch } from '../../store/store';
 import { CardProps } from "../../interfaces/interfaces"
-import { addToFavorites, removeFromFavorites } from '../../action/action';
+import { addToFavorites, deleteItem, removeFromFavorites } from '../../action/action';
 
 import style from './card.module.css';
 
@@ -16,9 +16,12 @@ const Card: React.FC<CardProps> = ({ id, name, flags, isFavorite}) => {
             dispatch(removeFromFavorites(id));
         } else {
             dispatch(addToFavorites(id));
-
         }
     };
+
+    const handleDeleteClick = () => {
+        dispatch(deleteItem(id));
+    }
 
     return (
         <div className={style.card_container}>
@@ -37,6 +40,7 @@ const Card: React.FC<CardProps> = ({ id, name, flags, isFavorite}) => {
                     <span className={style.card_title} >{name.common}</span>
                 </Link> */}
                 <span className={style.card_title} >{name.common}</span>
+                <button className={style.card_btn_delete} onClick={handleDeleteClick}>🗑️</button>
             </div>
         </div>
     );

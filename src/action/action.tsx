@@ -17,6 +17,7 @@ export const ADD_TO_FAVORITES = "ADD_TO_FAVORITES";
 export const REMOVE_FROM_FAVORITES = "REMOVE_FROM_FAVORITES";
 export const CLEAR_RESULTS = "CLEAR_RESULTS";
 export const SAVE_LOCAL = "SAVE_LOCAL";
+export const REMOVE_ITEM = "REMOVE_ITEM";
 
 export type AppDispatch = (action: 
                                 GetCountriesAction | 
@@ -167,9 +168,16 @@ export function clearSearchResults() {
     };
 }
 
-export function SaveLocal(favorites: Country) {
+export function saveLocal(favorites: Country) {
     return {
         type: SAVE_LOCAL,
         payload: favorites,
+    };
+}
+
+export function deleteItem(id: string | number) {
+    return {
+        type: REMOVE_ITEM,
+        payload: id,
     };
 }

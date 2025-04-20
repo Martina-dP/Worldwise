@@ -4,7 +4,10 @@ import {
     GET_COUNTRIES_BY_ID, 
     SEARCH_COUNTRIES,
     REMOVE_FROM_FAVORITES, 
-    SORT_ALPHABETICALLY 
+    SORT_ALPHABETICALLY, 
+    REMOVE_ITEM,
+    CLEAR_RESULTS,
+    SAVE_LOCAL
 } from "../action/action"; 
 
 export interface GetCountriesAction {
@@ -72,4 +75,18 @@ export interface PaginationProps {
     totalPages: number;
     handleNextPage: (page: number) => void;
     handlePrevPage: (page: number) => void;
+}
+
+export interface RemoveItemAction {
+    type: typeof REMOVE_ITEM;
+    payload: string | number;
+}
+
+export interface ClearResultsAction {
+    type: typeof CLEAR_RESULTS;
+}
+
+export interface SaveLocalAction {
+    type: typeof SAVE_LOCAL;
+    payload: Country[];
 }

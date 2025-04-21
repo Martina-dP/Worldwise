@@ -24,14 +24,14 @@ const Pagination: React.FC<PaginationProps> = ({
 
     return (
         <div className={style.pagination_container}>
-            <button onClick={handlePrevious} disabled={currentPage === 1}>
-                Previous
+            <button className={style.pagination_btn } onClick={handlePrevious} disabled={currentPage === 1}>
+                {'<'}
             </button>
             <span className={style.pagination_text}>
                 Page {currentPage} of {totalPages}
             </span>
-            <button onClick={handleNext} disabled={currentPage === totalPages}>
-                Next
+            <button className={style.pagination_btn } onClick={handleNext} disabled={currentPage === totalPages}>
+                {'>'}
             </button>
         </div>
     );

@@ -11,6 +11,10 @@
     padding: 0 10px;
 }
 
+.pagination_btn {
+    padding: 0.25rem 0.5rem;
+}
+
 @media (max-width: 768px) {
     .pagination_container {
         margin-top: 10px;

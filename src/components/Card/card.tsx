@@ -1,5 +1,5 @@
 import React from 'react';
-// import { Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { AppDispatch } from '../../store/store';
 import { CardProps } from "../../interfaces/interfaces"
@@ -36,10 +36,9 @@ const Card: React.FC<CardProps> = ({ id, name, flags, isFavorite}) => {
                 className={style.card_img}
             />
             <div className={style.card_info}>
-                {/* <Link to={`/country/${id}`} >
+                <Link to={`/country/${id}`} >
                     <span className={style.card_title} >{name.common}</span>
-                </Link> */}
-                <span className={style.card_title} >{name.common}</span>
+                </Link>
                 <button className={style.card_btn_delete} onClick={handleDeleteClick}>🗑️</button>
             </div>
         </div>

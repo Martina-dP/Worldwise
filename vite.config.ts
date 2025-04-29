@@ -5,12 +5,4 @@ import react from '@vitejs/plugin-react'
 export default defineConfig({
   base: '/Worldwise/',
   plugins: [react()],
-  build: {
-    rollupOptions: {
-      input: {
-        main: 'index.html',
-        fallback: '404.html'
-      }
-    }
-  }
 })
